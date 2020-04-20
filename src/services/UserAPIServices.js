@@ -4,7 +4,6 @@
  */
 import axios from 'axios'
 export default class UserAPIServices  {
-
   getUser (){
     const headers = { 'Content-Type': 'application/json' };
     const request = {
