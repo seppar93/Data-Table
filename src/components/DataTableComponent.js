@@ -1,29 +1,33 @@
 import React, { Component } from 'react'
-import ReactTable from 'react-table'
+import { Button } from 'reactstrap';
+
+import  UserAPIServices from '../services/UserAPIServices'
 
 export class DataTableComponent extends Component {
+  constructor(props){
+    super(props)
+    this.userAPIServices = new UserAPIServices();
+    this.fetchUserData = this.fetchUserData.bind(this)
+  }
 
+  fetchUserData(){
+    this.userAPIServices.getUser().then(res => {
+      console.log(res);
+    }).catch(res => {
+      console.log(res);
 
-
+    })
+  }
 
   render() {
-    const columns = [
-      { Header: 'Profile', accessor: 'picture' },
-      { Header: 'User', accessor: 'name' },
-      { Header: 'Address', accessor: 'location' },
-      { Header: 'Contact', accessor: 'email' },
-    ];
+
     return (
       <>
-      {/* <ReactTable/> */}
+      <Button onClick={this.fetchUserData}>TESTING</Button>
       </>
-    )
+    );
   }
 }
 
 export default DataTableComponent
 
-{/* <ReactTable
-  columns={columns}
-        >
- </ReactTable> */}
