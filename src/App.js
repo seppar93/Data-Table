@@ -1,6 +1,7 @@
 // Modules
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 // Styling
 import './App.css';
@@ -11,23 +12,33 @@ import DataTableComponent from './components/DataTableComponent';
 // Services
 import UserAPIServices from './services/UserAPIServices';
 
+// actions
+import {
+  fetchUserPending,
+  fetchUserSuccess,
+  fetchUserError,
+} from './redux/actions/action';
+import * as actions from './redux/actions/action';
 
-
- 
 class App extends Component {
   constructor(props) {
     super(props);
     this.userAPIServices = new UserAPIServices();
+    this.fetchUsers = this.fetchUsers.bind(this);
     this.state = {};
   }
-  componentDidMount() {
+  componentDidMount() {}
+
+  fetchUsers() {
+    this.props.actions.fetchUserPending();
     this.userAPIServices
       .getUser()
       .then((res) => {
-        console.log(res);
+        this.props.actions.fetchUserSuccess(res.data.results);
+        console.log(this.props);
       })
       .catch((res) => {
-        console.log(res);
+        this.props.actions.fetchUserError();
       });
   }
 
@@ -36,25 +47,20 @@ class App extends Component {
 
     return (
       <div className='App'>
-        <button onClick={this.props.updateUser()}>TESTING action</button>
-        <DataTableComponent test={'test'} />
+        <button onClick={this.fetchUsers}>Testing</button>
+        {/* <DataTableComponent test={'test'} /> */}
       </div>
     );
   }
 }
- 
 
-
-const mapStateToProps = (state, props) => {
+function mapStateToProps(state) {
   return {
-    posts: state.posts,
+    user: state.users,
   };
-};
-const mapDispatchToProps = (dispatch) => {
-  return {
-    updateUser: (user) => {dispatch({type: 'UPDATE_USER', user: user})}
-  }
-
 }
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+function mapDispatchToProps(dispatch) {
+  return { actions: bindActionCreators(actions, dispatch) };
+}
 
+export default connect(mapStateToProps, mapDispatchToProps)(App);
