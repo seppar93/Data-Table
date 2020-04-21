@@ -1,12 +1,16 @@
+// Modules
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.css';
+
+// Styling
 import './index.css';
+// Components
 import App from './App';
+
+// Redux Configuration
 import * as serviceWorker from './serviceWorker';
-import { createStore } from 'redux';
-import rootReducer from './redux/reducers/reducer'
 import configureStore from './redux/configureStore'
 
 ReactDOM.render(

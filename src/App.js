@@ -1,16 +1,7 @@
 // Modules
-import React, { Component, lazy, Suspense } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
-// Styling
-import './App.css';
-
-// Services
-import UserAPIServices from './services/UserAPIServices';
+import React, {lazy, Suspense } from 'react';
 
 // Components
-// import DataTableComponent from './components/DataTableComponent';
 const DataTableComponent = lazy(() =>
   import('./components/DataTableComponent')
 );
@@ -19,6 +10,7 @@ export const App = () => {
   return (
     <div className='App'>
       <Suspense fallback={<div>...loading</div>}>
+        {/* Fall back to display lazy loaded "...loading" */}
         <DataTableComponent />
       </Suspense>
     </div>

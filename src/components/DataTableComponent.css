@@ -1,0 +1,10 @@
+.table {
+  resize:both;
+    overflow:auto;
+    
+}
+
+.table .userRow .table-data {
+    resize:both;
+    overflow:auto;
+}
